@@ -24,49 +24,180 @@ The feature selection techniques used are:
 3.Embedded Method
 
 # CODING AND OUTPUT:
+```
+NAME : KARTHIKEYAN S
+REG NO : 24900102
+```
+```python
+import pandas as pd
+import numpy as np
+import seaborn as sns
 
-![Screenshot 2024-11-28 144253](https://github.com/user-attachments/assets/67e316e1-bfee-4518-8748-d9a170cfc749)
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
 
-![Screenshot 2024-11-28 144301](https://github.com/user-attachments/assets/a13e1af9-9e35-4f6b-837c-b3c13dab006f)
+data=pd.read_csv("/content/income(1) (1).csv",na_values=[ " ?"])
+data
+```
+![Screenshot 2024-10-03 105005](https://github.com/user-attachments/assets/0d9200b4-6128-4b3b-98e3-170372362ef5)
 
-![Screenshot 2024-11-28 144310](https://github.com/user-attachments/assets/62633c6a-8b5f-4e08-8dda-534f520d6bf5)
+```python
 
-![Screenshot 2024-11-28 144404](https://github.com/user-attachments/assets/ade8cc87-3bfc-49c0-a230-a28403c2234c)
+data.isnull().sum()
+```
+![Screenshot 2024-10-03 105135](https://github.com/user-attachments/assets/b05b9502-8a24-4bfb-aa06-13ef1ae5f64f)
 
-![Screenshot 2024-11-28 144413](https://github.com/user-attachments/assets/80169b0b-02b6-4253-8cf6-0341ec16fb59)
+```python
 
-![Screenshot 2024-11-28 144422](https://github.com/user-attachments/assets/383e895a-d5d5-4e9d-96db-e774fa41a19e)
+missing=data[data.isnull().any(axis=1)]
+missing
+```
+![image](https://github.com/user-attachments/assets/e10b79af-1d96-40f8-a8a1-5146569fcbc5)
 
-![Screenshot 2024-11-28 144432](https://github.com/user-attachments/assets/7d726bba-2144-4deb-b0b8-bccecf868831)
+```python
 
-![Screenshot 2024-11-28 144440](https://github.com/user-attachments/assets/4ed604c8-8838-42f0-a2a8-48a6833c656f)
+data2=data.dropna(axis=0)
+data2
+```
+![image](https://github.com/user-attachments/assets/8c5b6868-7bcb-49aa-a739-11123eab2c47)
 
-![Screenshot 2024-11-28 144457](https://github.com/user-attachments/assets/13f62d2b-ed7b-4965-9f4c-965a66e787e6)
+```python
+sal=data["SalStat"]
 
-![Screenshot 2024-11-28 144510](https://github.com/user-attachments/assets/a913e49b-1cda-4ba9-9a57-ed43d4ce6b8c)
+data2["SalStat"]=data["SalStat"].map({' less than or equal to 50,000':0,' greater than 50,000':1})
+print(data2['SalStat'])
+```
+![image](https://github.com/user-attachments/assets/38b17801-5354-492b-b271-48c6cfa672c6)
 
-![Screenshot 2024-11-28 144530](https://github.com/user-attachments/assets/3dbfe14d-9d4d-496c-a518-79085bf6a8ba)
+```python
+sal2=data2['SalStat']
 
-![Screenshot 2024-11-28 144608](https://github.com/user-attachments/assets/7b9b27e5-5348-4b62-af83-5aa8e15513f4)
+dfs=pd.concat([sal,sal2],axis=1)
+dfs
+```
+![image](https://github.com/user-attachments/assets/dbb67bf2-8038-40d6-8ca6-af150e17bb3c)
+```python
+data2
+```
+![image](https://github.com/user-attachments/assets/f230751f-8c5e-4cad-8e59-282ff7ce9f59)
+```python
+new_data=pd.get_dummies(data2, drop_first=True)
+new_data
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/f21819e3-a5bd-47e6-b1b7-9bc08b64bed9)
+```python
 
-![Screenshot 2024-11-28 144618](https://github.com/user-attachments/assets/7710c3d2-462c-45a4-9214-1da7c9ec2f6f)
-
-![Screenshot 2024-11-28 144629](https://github.com/user-attachments/assets/cc6d5ebd-9dbc-44b8-a0fb-3a388a1b061b)
-
-![Screenshot 2024-11-28 144643](https://github.com/user-attachments/assets/3a51aef6-c350-4c89-b523-b3f414d7b537)
-
-![Screenshot 2024-11-28 144652](https://github.com/user-attachments/assets/33fed857-99bc-469e-9a5b-797fa76d6612)
-
-![Screenshot 2024-11-28 144705](https://github.com/user-attachments/assets/4309c3d6-955f-4843-9c3d-681f4f17279e)
-
-![Screenshot 2024-11-28 144717](https://github.com/user-attachments/assets/1efe1448-5d3d-4ad9-9b31-927524131974)
-
-![Screenshot 2024-11-28 144730](https://github.com/user-attachments/assets/4dbc4b55-357f-4dcb-8dac-88135b39d7bf)
-
-![Screenshot 2024-11-28 144737](https://github.com/user-attachments/assets/c1d1b270-cc4c-4827-b18b-8b912fefe947)
-
-![Screenshot 2024-11-28 144743](https://github.com/user-attachments/assets/daeef818-3c0c-41e6-9db5-1ad2b724c2ef)
+columns_list=list(new_data.columns)
+print(columns_list)
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/8af6f5ce-4d99-4ed6-9371-730aeaa5a56b)
+```python
 
 
+features=list(set(columns_list)-set(['SalStat']))
+print(features)
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/5f31a677-7d30-417a-8044-d5db741cafbf)
+```python
+y=new_data['SalStat'].values
+print(y)
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/f4c779af-4c87-449e-9daa-be5d8d275212)
+```python
+
+x=new_data[features].values
+print(x)
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/4154db03-4c87-4b98-a13b-964f19bee9b0)
+```python
+
+train_x,test_x,train_y,test_y=train_test_split(x,y,test_size=0.3,random_state=0)
+
+KNN_classifier=KNeighborsClassifier(n_neighbors = 5)
+
+KNN_classifier.fit(train_x,train_y)
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/e5e02520-eb39-436c-ac2e-e43048c1d672)
+```python
+
+prediction=KNN_classifier.predict(test_x)
+
+confusionMatrix=confusion_matrix(test_y, prediction)
+print(confusionMatrix)
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/a6eedfe3-aedd-4500-958f-6faafd54f464)
+```python
+
+accuracy_score=accuracy_score(test_y,prediction)
+print(accuracy_score)
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/0e56ff41-2f35-4d01-b479-53547391567b)
+```python
+
+print("Misclassified Samples : %d" % (test_y !=prediction).sum())
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/4af5ed3f-362a-40c6-a438-c89f31584e51)
+```python
+
+data.shape
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/1986f990-26e6-4b42-acfc-b2a6e52f8042)
+```python
+
+import pandas as pd
+from sklearn.feature_selection import SelectKBest, mutual_info_classif, f_classif
+data={
+    'Feature1': [1,2,3,4,5],
+    'Feature2': ['A','B','C','A','B'],
+    'Feature3': [0,1,1,0,1],
+    'Target'  : [0,1,1,0,1]
+}
+
+df=pd.DataFrame(data)
+x=df[['Feature1','Feature3']]
+y=df[['Target']]
+
+selector=SelectKBest(score_func=mutual_info_classif,k=1)
+x_new=selector.fit_transform(x,y)
+
+selected_feature_indices=selector.get_support(indices=True)
+
+selected_features=x.columns[selected_feature_indices]
+print("Selected Features:")
+print(selected_features)
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/20777b0d-3cdb-4ae9-80e4-1f76ed093191)
+```python
+
+import pandas as pd
+import numpy as np
+from scipy.stats import chi2_contingency
+
+import seaborn as sns
+tips=sns.load_dataset('tips')
+tips.head()
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/6d6f7ff2-b1da-4568-9cd1-cb6fa9553cd6)
+```python
+
+tips.time.unique()
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/f77bc757-8a31-4a5d-be15-5a447e6549c6)
+```python
+
+contingency_table=pd.crosstab(tips['sex'],tips['time'])
+print(contingency_table)
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/06365e9f-f51b-4cf6-ab04-8a136726a025)
+```python
+
+chi2,p,_,_=chi2_contingency(contingency_table)
+print(f"Chi-Square Statistics: {chi2}")
+print(f"P-Value: {p}")
+```
+![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/6adc4da7-421c-458f-9ec6-f6158aa6f731)
 # RESULT:
-        Perform Feature Scaling and Feature Selection process by given dataset are verified
+Thus, Feature selection and Feature scaling has been used on thegiven dataset.
+
+
